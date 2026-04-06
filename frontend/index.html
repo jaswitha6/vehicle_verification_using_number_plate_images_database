@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VeriPlate: Vehicle Verification System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-mark">VP</div>
+        <div class="logo-text">
+          <span class="logo-name">VeriPlate</span>
+          <span class="logo-sub">Vehicle Verification System</span>
+        </div>
+      </div>
+      <div class="header-badge">DIP + NLP Integrated</div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-intro">
+      <h1>Number Plate Verification</h1>
+      <p>Upload a vehicle image to detect, extract, and verify the number plate against the registered vehicle database.</p>
+    </div>
+
+    <div class="verify-layout">
+
+      <!-- Upload Panel -->
+      <div class="panel upload-panel">
+        <div class="panel-header">
+          <span class="panel-number">01</span>
+          <span class="panel-title">Upload Image</span>
+        </div>
+
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <p class="upload-label">Drop image here or <span>browse</span></p>
+          <p class="upload-hint">JPG, PNG, HEIC supported</p>
+          <input type="file" id="fileInput" accept="image/*,.heic,.heif" hidden />
+        </div>
+
+        <div class="preview-container hidden" id="previewContainer">
+          <img id="previewImage" src="" alt="Preview" />
+          <button class="btn-clear" id="clearBtn">✕ Remove</button>
+        </div>
+
+        <button class="btn-verify" id="verifyBtn" disabled>
+          Run Verification Pipeline
+        </button>
+
+        <div class="divider"><span>or enter manually</span></div>
+
+        <div class="manual-input">
+          <label>Plate Number</label>
+          <div class="input-row">
+            <input type="text" id="manualPlate" placeholder="e.g. KA05KT8164" maxlength="15" />
+            <button class="btn-manual" id="manualBtn">Verify</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result Panel -->
+      <div class="panel result-panel" id="resultCard">
+
+        <div class="result-placeholder" id="resultPlaceholder">
+          <div class="placeholder-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+          </div>
+          <p>Upload an image or enter a plate number to begin verification</p>
+        </div>
+
+        <div class="result-content hidden" id="resultContent">
+
+          <div class="panel-header">
+            <span class="panel-number">02</span>
+            <span class="panel-title">Verification Result</span>
+          </div>
+
+          <div class="decision-banner" id="decisionBanner">
+            <div class="decision-left">
+              <div class="decision-icon" id="decisionIcon"></div>
+              <div>
+                <h2 id="decisionLabel"></h2>
+                <p id="decisionSub"></p>
+              </div>
+            </div>
+            <div class="confidence-badge" id="confidenceBadge"></div>
+          </div>
+
+          <div class="plate-display" id="plateDisplay"></div>
+
+          <div class="info-grid" id="infoGrid"></div>
+
+          <div class="pipeline-section">
+            <div class="pipeline-header">
+              <h3>Pipeline Breakdown</h3>
+              <div class="pipeline-tabs">
+                <button class="ptab active" data-ptab="dip">DIP Steps</button>
+                <button class="ptab" data-ptab="nlp">NLP Steps</button>
+                <button class="ptab" data-ptab="images">Stage Images</button>
+              </div>
+            </div>
+
+            <div class="ptab-panel active" id="ptab-dip">
+              <div class="pipeline-steps" id="dipSteps"></div>
+            </div>
+            <div class="ptab-panel hidden" id="ptab-nlp">
+              <div class="pipeline-steps" id="nlpSteps"></div>
+            </div>
+            <div class="ptab-panel hidden" id="ptab-images">
+              <div class="stage-images" id="stageImages"></div>
+            </div>
+          </div>
+
+        </div>
+
+        </div>
+
+        <div class="loading hidden" id="loadingState">
+          <div class="loading-inner">
+            <div class="spinner"></div>
+            <p class="loading-title" id="loadingText">Processing...</p>
+            <div class="loading-steps" id="loadingSteps"></div>
+          </div>
+        </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>VeriPlate: Integrated DIP + NLP Vehicle Verification System &nbsp;·&nbsp;</p>
+  </footer>
+
+  <script src="app.js?v=4"></script>
+</body>
+</html>
