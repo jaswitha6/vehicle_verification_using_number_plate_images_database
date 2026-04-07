@@ -1,0 +1,10 @@
+{
+  "name": "vehicle-verification-frontend",
+  "version": "1.0.0",
+  "description": "VeriPlate - Vehicle Verification Frontend",
+  "private": true,
+  "scripts": {
+    "dev": "python -m http.server 3000",
+    "build": "echo 'No build needed for static site'"
+  }
+}

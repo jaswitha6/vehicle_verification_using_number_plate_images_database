@@ -52,6 +52,39 @@ A full-stack vehicle access control system combining **Digital Image Processing*
 
 ---
 
+## Deployment
+
+### Option 1: Heroku (Recommended for ML Apps)
+
+1. **Install Heroku CLI**: `npm install -g heroku`
+2. **Login**: `heroku login`
+3. **Create app**: `heroku create your-app-name`
+4. **Deploy**:
+   ```bash
+   git push heroku main
+   ```
+5. **Scale dyno**: `heroku ps:scale web=1`
+
+### Option 2: Railway
+
+1. **Connect GitHub repo** to Railway
+2. **Set build command**: `pip install -r requirements.txt`
+3. **Set start command**: `python app.py`
+4. **Deploy automatically** on git push
+
+### Option 3: DigitalOcean App Platform
+
+1. **Connect GitHub repo**
+2. **Set runtime**: Python
+3. **Configure environment variables**
+4. **Deploy**
+
+### Option 4: AWS/GCP/Azure
+
+Use their respective app hosting services with Docker containers.
+
+---
+
 ## Quick Start
 
 ### Prerequisites
