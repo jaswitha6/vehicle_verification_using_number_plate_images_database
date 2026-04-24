@@ -1,21 +1,34 @@
 import cv2
 import numpy as np
-import easyocr
-import pytesseract
 import re
 import logging
 import torch
 from collections import Counter
 from PIL import Image
 
+try:
+    import easyocr
+except ImportError:
+    easyocr = None
+
+try:
+    import pytesseract
+except ImportError:
+    pytesseract = None
+
 logger = logging.getLogger('VehicleVerification')
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+if pytesseract is not None:
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 # Initialize EasyOCR once globally
 try:
-    reader = easyocr.Reader(['en'], gpu=torch.cuda.is_available())
-    logger.info(f"[OCR] EasyOCR initialized | GPU: {torch.cuda.is_available()}")
+    if easyocr is not None:
+        reader = easyocr.Reader(['en'], gpu=torch.cuda.is_available())
+        logger.info(f"[OCR] EasyOCR initialized | GPU: {torch.cuda.is_available()}")
+    else:
+        reader = None
+        logger.warning("[OCR] EasyOCR not installed; skipping EasyOCR backend")
 except Exception as e:
     reader = None
     logger.warning(f"[OCR] EasyOCR init failed: {e}")
@@ -205,6 +218,8 @@ def run_easyocr(variant):
 
 
 def run_tesseract_variant(variant):
+    if pytesseract is None:
+        return '', 0.0
     try:
         pil_img = Image.fromarray(variant)
         config = '--psm 6 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
