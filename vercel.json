@@ -1,5 +1,5 @@
 {
-  "buildCommand": "echo 'Frontend only, no build needed'",
-  "outputDirectory": "frontend",
+  "buildCommand": "node scripts/build-frontend.js",
+  "outputDirectory": "dist",
   "framework": "other"
 }

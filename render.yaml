@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: vehicle-verification-backend
+    runtime: python
+    plan: free
+    rootDir: .
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn --chdir backend app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9

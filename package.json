@@ -1,0 +1,7 @@
+{
+  "name": "vehicle-verification-deploy",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-frontend.js"
+  }
+}
